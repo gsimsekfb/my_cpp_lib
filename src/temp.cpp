@@ -1,5 +1,5 @@
 #define CATCH_CONFIG_MAIN  // Tells Catch2 to provide a main()
-#include "catch/catch_amalgamated.hpp"
+#include "../catch/catch_amalgamated.hpp"
 
 #include <algorithm>
 
@@ -28,4 +28,9 @@ TEST_CASE("map-1") {
     REQUIRE(map.size() == 2);
     std::map<int, std::string> map2 { {4, "d"}, {2, "b" }};
     REQUIRE(map == map2);
+}
+
+TEST_CASE("map-2") {
+    std::map<int, std::string> map { {-1, "a"}, { 2, "b" }, {-3, "c"}, {4, "d"} };
+    REQUIRE(map.size() == 4);
 }

@@ -1,21 +1,21 @@
 @echo off
 setlocal enableextensions enabledelayedexpansion
 
-echo =========================================================================
-echo --- Usage Hint: "ct vec 20" means "test vec.cpp with cpp20" ...
-echo =========================================================================
-echo .
+@REM Usage:
+@REM ct list    // to test `src/list.cpp`
+@REM ct         // to test all test files under `src/*`
 
-echo --- Using cpp-%2 ...
-cl /std:c++%2 /Zc:__cplusplus /EHsc /Icatch %1.cpp catch/catch_amalgamated.cpp /Fobuild\ /Febuild\tests.exe /link user32.lib
+@REM Troubleshoot: 
+@REM build catch first if needed
+@REM cl /std:c++20 /EHsc /c catch/catch_amalgamated.cpp /Fobuild\catch.obj
+
+:: Check if %1 is empty
+if "%~1"=="" (set "TEST_FILES=src\*.cpp") else (set "TEST_FILES=src\%1.cpp")
+
+cl /std:c++20 /EHsc /Icatch %TEST_FILES% build\catch.obj /Fobuild\ /Febuild\tests.exe /link user32.lib
+
 if %ERRORLEVEL% neq 0 (
     echo --- Compilation failed! Exiting...
     exit /b %ERRORLEVEL%
 )
-echo --- Compilation succeeded...
-
 build\tests.exe -s
-
-
-@REM todos
-@REM - if no arg, test all files

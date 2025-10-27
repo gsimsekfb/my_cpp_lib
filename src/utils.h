@@ -1,13 +1,30 @@
 #include <iostream>
 
+//// Notes:
+// - `inline` fns are used to allow multiple definitions when `ct *` used
+
+/// Returns last `n` hex digit of `ptr`
+inline std::string last_n_digit(void* ptr, size_t n) {
+    std::stringstream ss;
+    ss << std::hex << std::setw(n) << std::setfill('0')
+       << (reinterpret_cast<uintptr_t>(ptr) & 0xFFFF);
+    return ss.str();
+}
+
 ///
 template<typename T>
-T&& println_impl(const char* expr, T&& value, const char* file = __FILE__, int line = __LINE__) {
-    std::cerr << value << std::endl;
+T&& println(T&& value) {
+    std::cout << value << std::endl;
     return std::forward<T>(value);
 }
 
-#define println(x) println_impl(#x, x)
+
+///
+template<typename T>
+T&& print(T&& value) {
+    std::cout << value;
+    return std::forward<T>(value);
+}
 
 
 ///
@@ -23,7 +40,7 @@ T&& debug_print(const char* expr, T&& value, const char* file = __FILE__, int li
 ///
 #define print_vec(vec) print_vec_(vec, #vec)
 
-void print_vec_(const std::vector<int>& vec, const std::string& name) {
+inline void print_vec_(const std::vector<int>& vec, const std::string& name) {
     std::cout << name << ": ";
     for (int e : vec) std::cout << e << " ";
     std::cout << std::endl;
@@ -32,7 +49,7 @@ void print_vec_(const std::vector<int>& vec, const std::string& name) {
 
 /// cpp version
 /// Note: works with this usage: cl /Zc:__cplusplus ...
-void print_cpp_version() {
+inline void print_cpp_version() {
     auto const cpp_version = [] () {
         switch (__cplusplus) {
             case 199711L: return "C++98 / C++03";
@@ -44,7 +61,7 @@ void print_cpp_version() {
             default: return "default case";
         }
     };
-    std::cout << "C++ version: " << cpp_version() << std::endl;
+    std::cout << "=== C++ version: " << cpp_version() << std::endl << std::endl;
 
     // or
     // std::cout << "C++ version: "; 

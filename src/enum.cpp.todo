@@ -1,0 +1,104 @@
+
+
+
+/// enum
+// Enumeration types:
+// Plain enums
+// Scoped enums (enum class)
+// ... todo
+
+
+/// switch.h
+
+// 1. allowed types:
+// - Integral types:
+// int
+// char
+// short
+// long
+// long long
+// Their unsigned variants
+// - Enumeration types:
+// Plain enums
+// Scoped enums (enum class)
+
+// 2. disallowed types:
+// floating-point types (float, double)
+// string types
+
+// 3. Notes
+// Case values must be compile-time constants
+
+// 4. break alternatives:
+// Use break as the default choice
+// Use return when you need to exit the function
+// Use [[fallthrough]] when you intentionally want fall-through behavior
+// goto - avoid it
+
+// a. basics
+// 
+    enum class Color {
+        RED, GREEN, BLUE, YELLOW
+    };
+
+    auto color=Color::YELLOW;
+    switch(color){
+        case Color::RED:
+            println("-- Red");
+            break;
+        case Color::GREEN:
+            println("-- Green");
+            break;
+        case Color::BLUE:
+            println("-- Blue");
+            break;
+        default:
+            println("-- Unknown color");
+            break;
+    };
+
+// b. return/assign to var:
+void print_cpp_version() {
+    auto const cpp_version = [] () {
+        switch (__cplusplus) {
+            case 199711L: return "C++98 / C++03";
+            case 201103L: return "C++11";
+            case 201402L: return "C++14";
+            case 201703L: return "C++17";
+            case 202002L: return "C++20";
+            case 202302L: return "C++23";
+            default: return "default case";
+        }
+    };
+    std::cout << "=== C++ version: " << cpp_version() << std::endl << std::endl;
+}
+
+// c. cpp17: [[fallthrough]]
+// For intentional fall-through to next case - use [[fallthrough]] to make it explicit): 
+    int x = 2;
+    switch(x) {
+        case 1: [[fallthrough]];
+        case 2: 
+            println("-- one or two"); break;
+        default:
+            println("-- unknown"); break;
+    };
+
+
+//// string.h
+    string str { "aa" };
+    auto len = str.size();  // string size: 2
+    dbg(len);
+
+    // C array
+    char [] arr { "abc"};
+    auto len2 = std::size(arr); // array size: 4
+    dbg(len2);
+
+    // C string
+    const char* arr3 = "abc";
+    auto len3 = std::strlen(arr3);  // str len: 3
+    dbg(len3);
+
+// ... todo: tests
+
