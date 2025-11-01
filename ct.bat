@@ -2,7 +2,8 @@
 setlocal enableextensions enabledelayedexpansion
 
 @REM Usage:
-@REM ct list    // to test `src/list.cpp`
+@REM ct list            // to test `src/list.cpp`
+@REM ct list test-1     // to test `src/list.cpp` `test-1`
 @REM ct         // to test all test files under `src/*`
 
 @REM Troubleshoot: 
@@ -18,4 +19,4 @@ if %ERRORLEVEL% neq 0 (
     echo --- Compilation failed! Exiting...
     exit /b %ERRORLEVEL%
 )
-build\tests.exe -s
+build\tests.exe -s %2
