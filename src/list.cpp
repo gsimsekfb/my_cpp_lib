@@ -66,7 +66,7 @@ const Node* find_common_tail(const Node* list1, const Node* list2) {
         println("-- early return, last_node_s are different ..");
         return nullptr;
     }
-    
+
     // Step-2. Advance to same len
     if(len1 > len2) advance(list1, len1-len2);
     else            advance(list2, len2-len1);
@@ -75,7 +75,7 @@ const Node* find_common_tail(const Node* list1, const Node* list2) {
     while(list1 != nullptr) {
         if (list1 == list2) return list1;
         list1 = list1->next;
-        list2 = list2->next;  
+        list2 = list2->next;
     }
 
     return nullptr;
