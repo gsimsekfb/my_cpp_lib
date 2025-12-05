@@ -24,10 +24,10 @@ jobs:
     - name: Build Catch2
       run: cl /std:c++20 /EHsc /c catch/catch_amalgamated.cpp /Fobuild\catch.obj
 
-    - name: src/*
-      run: .\cti.bat *
+    - name: Test src/*
+      run: .\ct.bat
       shell: cmd
 
-    - name: src/algo-data/*
-      run: .\ct8.bat algo-data\*
+    - name: Test src/algo-data/*
+      run: .\ct.bat algo-data\*
       shell: cmd
