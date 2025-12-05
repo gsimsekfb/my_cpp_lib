@@ -4,7 +4,7 @@ setlocal enableextensions enabledelayedexpansion
 
 
 echo --- Using cpp-20 ...
-cl src\main.cpp /std:c++20 /Zc:__cplusplus /Fobuild\ /Febuild\main.exe
+cl main.cpp /std:c++20 /Zc:__cplusplus /Fobuild\ /Febuild\main.exe
 if %ERRORLEVEL% neq 0 (
     echo --- Compilation failed! Exiting...
     exit /b %ERRORLEVEL%
