@@ -1,4 +1,4 @@
-name: clippy
+name: clang-tidy
 
 on:
   push:
@@ -29,5 +29,5 @@ jobs:
       shell: cmd
 
     - name: src/algo-data/*
-      run: .\ct8.bat algo-data\*
+      run: .\cti.bat algo-data\*
       shell: cmd
