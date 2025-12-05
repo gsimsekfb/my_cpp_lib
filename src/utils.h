@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 
 //// Notes:
 // - `inline` fns are used to allow multiple definitions when `ct *` used
@@ -43,6 +44,16 @@ T&& debug_print(const char* expr, T&& value, const char* file = __FILE__, int li
 inline void print_vec_(const std::vector<int>& vec, const std::string& name) {
     std::cout << name << ": ";
     for (int e : vec) std::cout << e << " ";
+    std::cout << std::endl;
+}
+
+///
+#define print_map(map) print_map_(map, #map)
+
+template <typename Key, typename Val>
+inline void print_map_(const std::map<Key, Val>& map, const std::string& name) {
+    std::cout << name << ": ";
+    for (auto const& [k,v] : map) std::cout << k << " " << v << ", ";
     std::cout << std::endl;
 }
 
