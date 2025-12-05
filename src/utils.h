@@ -1,5 +1,8 @@
 #include <iostream>
+#include <iomanip>
 #include <map>
+#include <sstream>
+#include <vector>
 
 //// Notes:
 // - `inline` fns are used to allow multiple definitions when `ct *` used

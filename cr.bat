@@ -1,24 +1,10 @@
 @echo off
 setlocal enableextensions enabledelayedexpansion
 
-@REM v1: w/ cmake==
-@REM ===========================
-@REM cd build	
-@REM cmake --build .
-
-@REM rem ...
-@REM Debug\hello.exe
 
 
-
-@REM v2: w/o cmake
-@REM ===========================
-@REM e.g. cl main.cpp /std:c++20 /Fobuild\ /Febuild\main.exe
-@REM cl main.cpp /std:c++%1 /Fobuild\ /Febuild\main.exe
-
-
-echo --- Using cpp-%1 ...
-cl main.cpp /std:c++%1 /Zc:__cplusplus /Fobuild\ /Febuild\main.exe
+echo --- Using cpp-20 ...
+cl src\main.cpp /std:c++20 /Zc:__cplusplus /Fobuild\ /Febuild\main.exe
 if %ERRORLEVEL% neq 0 (
     echo --- Compilation failed! Exiting...
     exit /b %ERRORLEVEL%
@@ -27,6 +13,31 @@ echo --- Compilation succeeded...
 
 build\main.exe
 
+
+@REM v1: w/ cmake==
+@REM ===========================
+@REM cd build	
+@REM cmake --build .
+
+@REM rem ...
+@REM Debug\hello.exe
+
+@REM v2: w/o cmake
+@REM ===========================
+@REM e.g. cl main.cpp /std:c++20 /Fobuild\ /Febuild\main.exe
+@REM cl main.cpp /std:c++%1 /Fobuild\ /Febuild\main.exe
+
+
+
+@REM Todo
+@REM =============================================================
+
+@REM  todo
+@REM set CPP_VERSION=c++20
+
+@REM echo -------------------------
+@REM echo --- Using c++ %CPP_VERSION%
+@REM echo -------------------------
 
 
 @REM Todo
