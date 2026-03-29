@@ -13,10 +13,32 @@ setlocal enableextensions enabledelayedexpansion
 :: Check if %1 is empty
 if "%~1"=="" (set "TEST_FILES=src\*.cpp") else (set "TEST_FILES=src\%1.cpp")
 
-cl /std:c++20 /EHsc /Icatch %TEST_FILES% build\catch.obj /Fobuild\ /Febuild\tests.exe /link user32.lib
+@REM for cl     : c++latest (for c++23)
+@REM for clang++: c++23
+set CPP_VERSION=c++23
+
+echo .
+echo -------------------------
+echo Compilation
+echo -------------------------
+echo -- Using %CPP_VERSION%
+
+@REM Print clang version and date
+for /f "tokens=3" %%v in ('clang++ --version ^| find "clang version"') do (
+    echo -- clang++ version: %%v
+    curl -s "https://api.github.com/repos/llvm/llvm-project/releases/tags/llvmorg-%%v" | find "published_at"
+)
+
+@REM clang++ -std=%CPP_VERSION% -fcolor-diagnostics main.cpp -o build/main.exe
+clang++ -std=%CPP_VERSION% -fexceptions -Icatch %TEST_FILES% build\catch.obj -o build\tests.exe -luser32
+@REM cl /std:%CPP_VERSION% /EHsc /Icatch %TEST_FILES% build\catch.obj /Fobuild\ /Febuild\tests.exe /link user32.lib
+
 
 if %ERRORLEVEL% neq 0 (
-    echo --- Compilation failed! Exiting...
+    echo . & echo -- Compilation failed! Exiting...
     exit /b %ERRORLEVEL%
 )
+echo -- Compilation succeeded...
+echo .
+
 build\tests.exe -s %2

@@ -75,7 +75,7 @@ inline void print_cpp_version() {
             default: return "default case";
         }
     };
-    std::cout << "=== C++ version: " << cpp_version() << std::endl << std::endl;
+    std::cout << "-- C++ version: " << cpp_version() << std::endl << std::endl;
 
     // or
     // std::cout << "C++ version: "; 
@@ -88,4 +88,9 @@ inline void print_cpp_version() {
     //     case 202302L: println("C++23"); break;
     //     default: println("default case");
     // };
+}
+
+template <typename T>
+void print_type(T t) {
+    std::cout << typeid(t).name() << "\n";
 }

@@ -9,7 +9,9 @@ using namespace std;
 
 
 int main() {
-    std::cout << "\n================== main start \n";
+    std::cout << "\n-------------------------\n";
+    std::cout << "Main\n";
+    std::cout << "-------------------------\n";
     print_cpp_version();
 
 
@@ -28,6 +30,6 @@ int main() {
     // dbg(&vec);
     // print_vec(v);
     // ---------------------
-    std::cout << "\n================== main end" << std::endl;
+    std::cout << "\n-- main ended" << std::endl;
     return 0;
 }
