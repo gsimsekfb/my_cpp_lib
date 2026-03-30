@@ -5,7 +5,8 @@ setlocal enableextensions enabledelayedexpansion
 @REM ct list            // test `src/list.cpp`
 @REM ct list test-1     // test `src/list.cpp` `test-1`
 @REM ct                 // test all test files under `src/*`
-@REM ct algo-data/*
+@REM ct algo-data\*
+@REM ct algo-data\linked_list
 
 @REM Troubleshoot: 
 @REM build catch first if needed
@@ -29,6 +30,8 @@ for /f "tokens=3" %%v in ('clang++ --version ^| find "clang version"') do (
     echo -- clang++ version: %%v
     curl -s "https://api.github.com/repos/llvm/llvm-project/releases/tags/llvmorg-%%v" | find "published_at"
 )
+
+echo -- build catch first if needed, see ct.bat
 
 @REM clang++ -std=%CPP_VERSION% -fcolor-diagnostics main.cpp -o build/main.exe
 clang++ -std=%CPP_VERSION% -fexceptions -Wall -Wextra -Wpedantic -Icatch %TEST_FILES% build\catch.obj -o build\tests.exe -luser32
