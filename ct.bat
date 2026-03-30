@@ -30,7 +30,7 @@ for /f "tokens=3" %%v in ('clang++ --version ^| find "clang version"') do (
 )
 
 @REM clang++ -std=%CPP_VERSION% -fcolor-diagnostics main.cpp -o build/main.exe
-clang++ -std=%CPP_VERSION% -fexceptions -Icatch %TEST_FILES% build\catch.obj -o build\tests.exe -luser32
+clang++ -std=%CPP_VERSION% -fexceptions -Wall -Wextra -Wpedantic -Icatch %TEST_FILES% build\catch.obj -o build\tests.exe -luser32
 @REM cl /std:%CPP_VERSION% /EHsc /Icatch %TEST_FILES% build\catch.obj /Fobuild\ /Febuild\tests.exe /link user32.lib
 
 

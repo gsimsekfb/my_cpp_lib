@@ -33,7 +33,7 @@ for /f "tokens=3" %%v in ('clang++ --version ^| find "clang version"') do (
 )
 
 @REM cl main.cpp /std:%CPP_VERSION% /Fobuild\ /Febuild\main.exe
-clang++ -std=%CPP_VERSION% -fcolor-diagnostics main.cpp -o build/main.exe
+clang++ -std=%CPP_VERSION% -fexceptions -Wall -Wextra -Wpedantic -fcolor-diagnostics main.cpp -o build/main.exe
 
 if %ERRORLEVEL% neq 0 (
     echo . & echo -- Compilation failed! Exiting...

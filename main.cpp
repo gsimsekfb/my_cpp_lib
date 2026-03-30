@@ -15,20 +15,21 @@ int main() {
     print_cpp_version();
 
 
-    int sum = 0;
-    for (int i = 0; i < 4; i++) {
-        // println(i);
-        sum += i;
-    };
 
-    auto res = sum;
-    dbg( res );
+    // dbg( res );
+
+
+
 
     // pinned
     // --------------------
     // vector<int> v { 1, 2, 3 };
     // dbg(&vec);
     // print_vec(v);
+    // for (int i = 0; i < 4; i++) {
+    //     println(i);
+    // };
+
     // ---------------------
     std::cout << "\n-- main ended" << std::endl;
     return 0;
