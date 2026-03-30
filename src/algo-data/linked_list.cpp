@@ -1,10 +1,10 @@
 #include <utility>
 #define CATCH_CONFIG_MAIN  // Tells Catch2 to provide a main()
-#include "../catch/catch_amalgamated.hpp"
+#include "../../catch/catch_amalgamated.hpp"
 
 #include <cstdlib>
 
-#include "utils.h"
+#include "../utils.h"
 
 
 // Last: 11.25

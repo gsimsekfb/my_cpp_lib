@@ -2,9 +2,10 @@
 setlocal enableextensions enabledelayedexpansion
 
 @REM Usage:
-@REM ct list            // to test `src/list.cpp`
-@REM ct list test-1     // to test `src/list.cpp` `test-1`
-@REM ct         // to test all test files under `src/*`
+@REM ct list            // test `src/list.cpp`
+@REM ct list test-1     // test `src/list.cpp` `test-1`
+@REM ct                 // test all test files under `src/*`
+@REM ct algo-data/*
 
 @REM Troubleshoot: 
 @REM build catch first if needed
