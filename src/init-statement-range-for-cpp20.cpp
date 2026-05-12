@@ -11,14 +11,14 @@ using namespace std;
 TEST_CASE("isr-1-simplest-example") {
     vector vec = {'a', 'b', 'c'};
     for(int i = 0; auto const& e : vec) {
-        ++i; println(e);
+        print(++i); println(e);
     }
     // i is no longer in scope here
 
     // instead of
     int i = 0;    
     for(auto const& e : vec) {
-        ++i; println(e);
+        print(++i); println(e);
     }
     // !! i leaks here
 
