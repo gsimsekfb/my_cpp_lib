@@ -31,7 +31,7 @@ for /f "tokens=3" %%v in ('clang++ --version ^| find "clang version"') do (
     curl -s "https://api.github.com/repos/llvm/llvm-project/releases/tags/llvmorg-%%v" | find "published_at"
 )
 
-echo -- build catch first if needed, see ct.bat
+echo -- build Catch first if needed, see ct.bat
 
 @REM clang++ -std=%CPP_VERSION% -fcolor-diagnostics main.cpp -o build/main.exe
 clang++ -std=%CPP_VERSION% -fexceptions -Wall -Wextra -Wpedantic -Icatch %TEST_FILES% build\catch.obj -o build\tests.exe -luser32

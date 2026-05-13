@@ -8,15 +8,22 @@
 using namespace std;
 
 
+// todo: random file fn
+
+
+// - Find the position of matched bytes in a large data memory
+
+
+
+
 int main() {
     std::cout << "\n-------------------------\n";
     std::cout << "Main\n";
     std::cout << "-------------------------\n";
     print_cpp_version();
 
-
-
     // dbg( res );
+
 
 
 
