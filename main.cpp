@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "src\utils.h"
+#include "src\random_file.h"
 
 using namespace std;
 
@@ -13,14 +14,13 @@ using namespace std;
 
 // - Find the position of matched bytes in a large data memory
 
-
-
-
 int main() {
     std::cout << "\n-------------------------\n";
     std::cout << "Main\n";
     std::cout << "-------------------------\n";
     print_cpp_version();
+
+    open_vscode(random_my_rust_lib_file());  // 1-3 files daily - read/code
 
     // dbg( res );
 
