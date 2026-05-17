@@ -5,13 +5,15 @@
 
 #include "utils.h"
 
+using namespace std;
+
 // cpp20
-void erase_negatives_2020(std::map<int, std::string>& map) {
+void erase_negatives_2020(std::map<int, string>& map) {
     std::erase_if(map, [](const auto& pair) { return pair.first < 0; } );
 }
 
 // cpp11
-void erase_negatives_2011(std::map<int, std::string>& map) {
+void erase_negatives_2011(std::map<int, string>& map) {
     for(auto it = map.begin(); it != map.end(); ) {
         if(it->first < 0) 
             it = map.erase(it);
@@ -21,11 +23,17 @@ void erase_negatives_2011(std::map<int, std::string>& map) {
 }
 
 TEST_CASE("map-1") {
-    std::map<int, std::string> map { {-1, "a"}, { 2, "b" }, {-3, "c"}, {4, "d"} };
+
+    //// define map
+    std::map<int, string> map { {-1, "a"}, { 2, "b" }, {-3, "c"}, {4, "d"} };
     REQUIRE(map.size() == 4);
 
+    //// erase negative key elems
     erase_negatives_2020(map);
     REQUIRE(map.size() == 2);
-    std::map<int, std::string> map2 { {4, "d"}, {2, "b" }};
-    REQUIRE(map == map2);
+    REQUIRE(map == std::map<int, string>{ {4, "d"}, {2, "b" }});
+
+    //// if init statement cpp17
+    if (auto [it, ok] = map.insert({1, "z"}); ok)
+        std::cout << "inserted\n";   // structured binding in init ✓
 }

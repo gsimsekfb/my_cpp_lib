@@ -1,16 +1,20 @@
-#include <array>
 #define CATCH_CONFIG_MAIN  // Tells Catch2 to provide a main()
 #include "../catch/catch_amalgamated.hpp"
 
 #include "utils.h"
+#include <array>
 
 using namespace std;
 
 
 // constinit ("const" is confusing; "const" is "compile time" in this context)
-// guarantees a variable is initialized at compile time (preventing the static
+// - guarantees a variable is initialized at compile time (preventing the static
 // initialization order fiasco), while still allowing it to be "mutated" at 
 // runtime — unlike `constexpr`, which locks the value permanently.
+//
+// - it is for a specific problem — it exists "solely" to prevent the static 
+//   initialization order fiasco while keeping mutability, so it's targeted,
+//   not general-purpose - which is for global vars.
 //
 // constinit = compile-time init only 
 //                      (still mutable, not usable in constant expressions)
@@ -30,17 +34,9 @@ using namespace std;
 
 
 
-//// 1. now, fixed init-order fiasco w/ constinit
-/* 
-a.cpp
-    constinit int base = 10; // guaranteed at compile time
+//// 1. fixes init-order fiasco w/ constinit
 
-b.cpp
-    constexpr int derived = 10 * 2; // OK: no runtime dep on base
-*/
-
-// before
-// what is init-order fiasco ?
+// before - init-order fiasco:
 /* 
 a.cpp
     int base = 10; // runtime-initialized
@@ -50,17 +46,14 @@ b.cpp
     int derived = base * 2; // 😱 base may be 0 or 10 or garbage here!
         // C++ does NOT guarantee a.cpp runs first
         // derived could be 0, 20, or garbage
+
+// now, fixed:
+a.cpp
+    constinit int base = 10; // guaranteed at compile time
+
+b.cpp
+    constexpr int derived = 10 * 2; // OK: no runtime dep on base
 */
-
-constinit int maxConnections = 128;
-constinit double timeoutSeconds = 30.0;
-    // - Constant-initialized at compile time (guaranteed no static-init order
-    //   fiasco)
-    // - Still mutable at runtime
-
-TEST_CASE("con-ini-1") {
-    REQUIRE(maxConnections == 128);
-}
 
 
 //// 2. Mut/Immut large table initialized once at compile time
