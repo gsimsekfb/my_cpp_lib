@@ -7,4 +7,5 @@ How it looks like:
 > [concepts-cpp20.cpp](src/concepts-cpp20.cpp)  
 > [consteval-cpp20.cpp](src/consteval-cpp20.cpp)  
 > [constexpr-cpp11.cpp](src/constexpr-cpp11.cpp)  
-> ... and more in -> [src/](src)  
+> ...  
+> and more in -> [src/](src)  
