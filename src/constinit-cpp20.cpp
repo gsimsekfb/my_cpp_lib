@@ -34,9 +34,14 @@ using namespace std;
 
 
 
-//// 1. fixes init-order fiasco w/ constinit
+//// 1. fix init-order fiasco w/ constinit
 
-// before - init-order fiasco:
+// before
+// init-order fiasco:
+// - one global's initializer depends on another global from a different 
+//   translation unit.
+//
+// e.g.
 /* 
 a.cpp
     int base = 10; // runtime-initialized
@@ -54,6 +59,19 @@ a.cpp
 b.cpp
     constexpr int derived = 10 * 2; // OK: no runtime dep on base
 */
+
+
+//// 1.b. fix w/o constinit pre-cpp20
+
+// Meyers singleton — lazy init, guaranteed safe
+int& getA() {
+    static int a = 42; /*getValue();*/  // initialized on first call, once
+    return a;
+}
+
+// file2.cpp
+int b = getA();  // ✓ safe — a is guaranteed initialized before b
+
 
 
 //// 2. Mut/Immut large table initialized once at compile time

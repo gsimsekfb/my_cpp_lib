@@ -1,0 +1,1 @@
+- rule of thumb: mark single-arg constructors explicit unless conversion is intended
