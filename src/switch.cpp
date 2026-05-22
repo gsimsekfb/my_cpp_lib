@@ -1,3 +1,8 @@
+#pragma clang diagnostic ignored "-Wunused-variable"
+#pragma clang diagnostic ignored "-Wunused-value"
+#pragma clang diagnostic ignored "-Wunused-function"
+
+
 // interv-1
 // - switch condition inline init with fn call cpp17
 // - answer: test 1
@@ -32,8 +37,8 @@
     // long long
     // Their unsigned variants
 // - Enumeration types:
-// Plain enums
-// Scoped enums (enum class)
+    // Plain enums
+    // Scoped enums (enum class)
 
 // 2. disallowed types:
 // floating-point types (float, double)
@@ -46,6 +51,7 @@
 // Use break as the default choice
 // Use return when you need to exit the function
 // Use [[fallthrough]] when you intentionally want fall-through behavior
+    // tells compiler/clang-tidy: no break is intentional, do not warning
 // goto - avoid it
 
 // 5. Default clause
@@ -66,8 +72,11 @@ TEST_CASE("sw-0") {
     switch(x) {
         case 0:
             println("-- 0");
-            break;
-        case 42: { // braces are needed due to line " int z .. "
+            // break;
+            [[fallthrough]];  
+                // to compiler/clang-tidy: no break is intentional
+        case 42: { // braces are needed due to line " int z .. ",
+                   // w/o braces error
             println("-- 42");
             [[maybe_unused]]
             int z = 3;
@@ -86,6 +95,7 @@ TEST_CASE("sw-1") {
     switch (int x = get_val(); x) { 
         case 0:
             println("-- 0");
+            { int xx = 42; }
             break;
         case 42: {
             println("-- 42");

@@ -24,7 +24,7 @@ namespace {
 
 //// 1
 
-//// extern variable — declare without defining
+/// extern variable — declare without defining
 // file_a.cpp
 int counter = 0;     // definition — memory allocated here
 
@@ -36,13 +36,13 @@ extern int counter;  // declaration — no memory, just tells compiler it exists
     // - one global's initializer depends on another global from a different 
     //   translation unit.
 
-//// C++17 inline — define in header, mutable, shared across all TUs
+/// C++17 inline — define in header, mutable, shared across all TUs
 // config.h
 inline std::string host = "localhost";  // ✓ no .cpp needed
 inline int port = 8080;                 // ✓ same instance across all TUs
 
-//// cpp20 with constinit — guarantee compile-time ini
-inline constinit int port_ = 8080;       // mutable + compile-time init ✓
+/// cpp20 with constinit — guarantee compile-time init
+inline constinit int port_ = 8080;      // mutable + compile-time init ✓
 
 
 //// 2. extern "C" — C linkage, no name mangling

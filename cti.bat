@@ -20,5 +20,9 @@ for /f "tokens=3" %%v in ('clang++ --version ^| find "clang version"') do (
 )
 
 echo -- running clang-tidy ...
-clang-tidy src\%1.cpp -- -std=%CPP_VERSION%
+set CMD=clang-tidy src\%1.cpp -- -std=%CPP_VERSION%
+echo -- cmd:
+echo %CMD%
+%CMD%
+echo .
 echo -- completed
