@@ -50,6 +50,11 @@ TEST_CASE("vec-0") {
 
     //// insert
     vec.push_back(42);                    // append — copy
+    // perf. emplace_back:
+    std::vector<std::string> v;
+    v.push_back("hello");           // creates temporary string, then moves
+    v.emplace_back("hello");        // constructs string directly in-place ✓
+    // and for Foo {"bob", 42}
     // vec.emplace_back("bob", 42)        // construct in-place — prefer ✓
         // for ctors, use emplace_back() instead of push_back()
         // vec.push_back(Foo {"bob", 42});

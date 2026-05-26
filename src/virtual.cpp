@@ -82,6 +82,7 @@ TEST_CASE("virtual-1") {
     //// 4. pure virtual — abstract class
     struct Animal_ {
         virtual void speak() = 0;  // must be overridden — no default impl
+        virtual ~Animal_() {}
     };
 
     // Animal_ animal;         // ❌ cannot instantiate abstract class

@@ -15,6 +15,14 @@ namespace {
 //
 // Key notes:
 
+
+// member initialized always executes completely before the ctor body runs.
+// Exact order of execution when an object is created:
+// 1. Base class ctors are initialized first (in the order they are inherited).
+// 2. Non-static member variables are init. in the order they are declared in 
+//    the class definition.
+// 3. Ctor body executes last.
+//
 struct Foo {
     int x, y;
 

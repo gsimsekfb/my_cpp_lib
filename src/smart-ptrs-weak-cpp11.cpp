@@ -28,15 +28,17 @@ TEST_CASE("weak-1") {
     std::weak_ptr<int> wp = sp;         // ref count stays 1 ✓
 
     //// access — must lock first
-    if (auto locked = wp.lock()) {      // returns shared_ptr — empty if expired
+    //// !! lock is like a temporary shared_ptr to keep the obj alive
+    if (auto locked = wp.lock()) {      // locked: shared_ptr — empty if expired
         std::cout << *locked;           // ✓ object still alive
     } else {
         std::cout << "expired";         // sp was destroyed
     }
 
-    //// check without locking
+    //// "safe" checks without locking
     wp.expired();                       // true if object gone
     wp.use_count();                     // current ref count (0 if expired)
+
 
     //// reset
     wp.reset();                         // release observation
