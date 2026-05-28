@@ -30,6 +30,19 @@ C++                       Rust:
 // unordered_set  — "fastest" membership test, no ordering needed
 // multiset       — duplicate values, ordered
 // flat_map/set   — small collections, cache-friendly (C++23)
+//
+//// std::flat_map and std::flat_set cpp23
+// - sorted vector-backed associative containers — same interface as map/set b/
+//   but cache-friendly contiguous memory.
+//
+// flat_map vs map
+// std::map: pointer-based tree, O(log n), pointer per node, cache unfriendly
+// std::flat_map: sorted vector, O(log n), contiguous memory, cache friendly
+// flat_map faster: lookup, iteration (cache), small collections
+// map faster:      insert/erase in middle of large collections
+// - best for: read-heavy, small-medium size, built once then queried
+// - worst for: frequent insert/erase in large collections — use map
+
 
 //// key notes
 // - operator[] on map creates default value if key missing — use at() or find()

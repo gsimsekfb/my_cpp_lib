@@ -15,10 +15,6 @@ namespace {
 //   on the actual object type, not the pointer/reference type.
 //
 // Key notes:
-// - always declare virtual dtor in base class with virtual functions
-// - always use override in derived — catches base class changes at compile time
-// - final on class: struct Dog final : Animal {} — whole class non-derivable
-// - pure virtual (=0) makes class abstract — cannot be instantiated
 // - virtual has runtime cost: vtable pointer per object + indirect call
 // - non-virtual functions are resolved at compile time — no cost
 //
@@ -31,8 +27,8 @@ namespace {
 
 TEST_CASE("virtual-1") {
 
-    //// 1. virtual methods
-    // without virtual — wrong function called
+    //// 1. virtual methods - without virtual, wrong function called
+    // w/o virtual
     struct Animal {
         string_view speak() { return "Animal"; }
     };
@@ -58,6 +54,8 @@ TEST_CASE("virtual-1") {
 
 
     //// 2. override — C++11, catches typos at compile time
+    // - always use override in derived — catches base class changes at 
+    //   compile time
     struct Animal__ { virtual void speak() { } };
     struct Dog__ : Animal__ {
         // void speak_() override {} 
@@ -65,10 +63,15 @@ TEST_CASE("virtual-1") {
         void speak() override {} // OK
     };
 
-
     {
-    
     //// 3. final — prevent further override (C++11)
+
+    // - final on class: 
+    struct Animal1 {};
+    struct Dog1 final : Animal1 {}; // whole class non-derivable
+
+
+    // - final on fn: 
     struct Animal { virtual void speak() { } };
     struct Dog : Animal {
         void speak() override final {}  // no derived class can override ✓
@@ -80,6 +83,7 @@ TEST_CASE("virtual-1") {
 
 
     //// 4. pure virtual — abstract class
+    // - pure virtual (=0) makes class abstract — cannot be instantiated
     struct Animal_ {
         virtual void speak() = 0;  // must be overridden — no default impl
         virtual ~Animal_() {}
@@ -92,6 +96,8 @@ TEST_CASE("virtual-1") {
 
 
     //// 5. virtual dtor — always needed with polymorphism
+    // - always declare virtual dtor in base class with virtual functions
+
     struct Animal__ {
         virtual ~Animal__() {}   // ✓ ensures derived destructor called
     };
