@@ -67,6 +67,12 @@ auto process(T val) {
         return val + 0.5;    // only compiled for floats
 }
 
+TEST_CASE("conste-1") {
+
+    REQUIRE(process(42) == 84);
+
+}
+
 // 3.b. constexpr lambdas also allowed in C++17
 // - lambdas implicitly constexpr if body is a constant expression
 // - explicit constexpr forces and a compile error if not possible

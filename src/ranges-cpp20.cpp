@@ -53,7 +53,7 @@ TEST_CASE("ranges-1") {
     auto view_ = view | views::common;
     vector result_vec (view_.begin(), view_.end());
     REQUIRE(result_vec == vector {1,1,9});
-    // cpp23
+    // cpp23 std::ranges::to<T> - Rust: .collect::<T>()
     auto result_vec_ = view | std::ranges::to<std::vector>();
     print_type(result_vec_); // std::vector<int,class std::allocator<int> >
     REQUIRE(result_vec_ == vector {1,1,9});
