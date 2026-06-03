@@ -16,10 +16,6 @@ using namespace std;
 //   like generic lambdas: auto twice = [](auto x) { return x * 2; };
 //
 // Key notes:
-// - Solves the main auto weakness: you can name, constrain, and decompose 
-//   the type
-// - Can enforce two params are same type — auto can't do this
-// - Works with concepts for constrained templates: []<std::integral T>
 // - Can take variadic template params: []<typename... Ts>
 // - Prefer over auto params when you need the type name inside the body
 
@@ -54,7 +50,7 @@ TEST_CASE("tem-lam-1") {
     // multiply(3.0, 4.0);  // ❌ compile error — not integral
 
 
-    //// 3. enforce same type for multiple params
+    //// 3. enforce same type for multiple params — auto can't do this
 
     // C++14 — auto allows different types silently
     auto add14 = [](auto a, auto b) { return a + b; };

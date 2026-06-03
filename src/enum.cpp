@@ -24,7 +24,7 @@ namespace {
 // - long long, unsigned long long
 
 
-TEST_CASE("ttt-1") {
+TEST_CASE("enu-1") {
 
     //// plain enum — C style, leaks names into scope
     enum Color { Red, Green, Blue };

@@ -33,8 +33,9 @@ for /f "tokens=3" %%v in ('clang++ --version ^| find "clang version"') do (
 )
 
 @REM cl main.cpp /std:%CPP_VERSION% /Fobuild\ /Febuild\main.exe
-@REM debug
-set CMD=clang++ -std=c++23 -fexceptions -Wall -Wextra -Wpedantic -fcolor-diagnostics -g -O0 main.cpp -o build/main.exe
+@REM set CMD=clang++ -std=%CPP_VERSION% -fexceptions -Wall -Wextra -Wpedantic -fcolor-diagnostics main.cpp -o build/main.exe
+@REM release
+set CMD=clang++ -std=c++23 -fexceptions -Wall -Wextra -Wpedantic -fcolor-diagnostics -O2 -DNDEBUG main.cpp -o build/main.exe
 echo -- cmd:
 echo %CMD%
 %CMD%

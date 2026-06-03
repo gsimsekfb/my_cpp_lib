@@ -33,7 +33,7 @@ for /f "tokens=3" %%v in ('clang++ --version ^| find "clang version"') do (
 
 echo -- build Catch first if needed, see ct.bat
 
-set CMD=clang++ -std=%CPP_VERSION% -fexceptions -Wall -Wextra -Wpedantic -Icatch %TEST_FILES% build\catch.obj -o build\tests.exe -luser32
+set CMD=clang++ -std=%CPP_VERSION% -fexceptions -Wall -Wextra -Wpedantic -fcolor-diagnostics -g -O0 -Icatch %TEST_FILES% build\catch.obj -o build\tests.exe -luser32
 echo -- cmd:
 echo %CMD%
 %CMD%

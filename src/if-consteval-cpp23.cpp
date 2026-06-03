@@ -29,7 +29,7 @@ constexpr int compute(int x) {
     }
 }
 
-TEST_CASE("ttt-1") {
+TEST_CASE("if-con-1") {
     constexpr int a = compute(5);   // compile time → 10
         // constexpr fns: may evaluate at compile time - forced if used in 
         // constant expression context, such as this case

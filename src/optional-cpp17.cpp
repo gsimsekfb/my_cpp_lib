@@ -1,4 +1,5 @@
 // #pragma once
+#include <optional>
 #pragma clang diagnostic ignored "-Wunused-variable"
 #pragma clang diagnostic ignored "-Wunused-value"
 
@@ -21,8 +22,6 @@ using namespace std;
 // - Represents "value or nothing" — no heap allocation (value stored inline)
 // - value() throws std::bad_optional_access if empty — use value_or() to be 
 //   safe
-// - *opt is UB if empty — always check first
-// - C++23 adds monadic ops: transform, and_then, or_else
 // - Prefer optional<T> return over T* when ownership is not intended
 
 
@@ -44,6 +43,7 @@ TEST_CASE("opt-1") {
 
     // check and access
     auto result = findUser(42); // result: optional<int>
+    // *opt is UB if empty — always check first
     if (result)                     // or result.has_value()
         std::cout << *result;       // or result.value()
 
@@ -54,4 +54,37 @@ TEST_CASE("opt-1") {
     optional<std::string> opt;  // default empty
     opt.emplace("ab"); // constructs inside optional - better, one less move
     opt = "cd";        // constructs and moves inside optional
+
+
+    //// cpp23 monadic ops: transform, and_then, or_else
+    std::optional<int> opt2 = 42;
+
+    // transform — map value, leave nullopt unchanged
+    opt2.transform([](int x) { return x * 2; });  // optional<int>{84}
+
+    // and_then — chain optionals (flatMap)
+    auto opt3 = opt2.and_then([](int x) -> std::optional<int> {
+        if (x > 100) return x * 2;
+        return std::nullopt;
+    });
+    REQUIRE(opt3 == std::nullopt);
+
+    // or_else — fallback if nullopt
+    std::optional<int> empty;
+    auto opt4 = empty.or_else([]() -> std::optional<int> { return 0; });  // optional<int>{0}
+    REQUIRE(opt4 == std::optional {0});
+
+
+    // chain
+    auto res = std::optional<std::string>{"hello"}
+        .transform([](const std::string& s) { return s + '-'; })
+        .and_then([](const std::string& s) -> std::optional<std::string> {
+            if (!s.empty()) return s + ">";
+            return std::nullopt;
+        })
+        .value_or("default");
+
+    REQUIRE(res == "hello->");
+
+
 }
