@@ -22,7 +22,7 @@ namespace Foo::Bar::Baz {
     void fn_() {}
 }
 
-// C++20 — inline namespaces in nested form
+// C++20 — "inline" namespaces in nested form
 namespace Foo::Bar::inline Bazz {
     void fn__() {}  // Baz members accessible via Foo::Bar:: directly
 }

@@ -71,7 +71,7 @@ TEST_CASE("opt-1") {
 
     // or_else — fallback if nullopt
     std::optional<int> empty;
-    auto opt4 = empty.or_else([]() -> std::optional<int> { return 0; });  // optional<int>{0}
+    auto opt4 = empty.or_else([]() -> std::optional<int> { return 0; });
     REQUIRE(opt4 == std::optional {0});
 
 

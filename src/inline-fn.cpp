@@ -17,16 +17,12 @@ namespace {
 //   *ODR: One Definition Rule
 //
 // Key notes:
-// - inline as optimization hint: compiler may ignore — it knows better
-// - inline as ODR fix: main modern use — allows definition in headers
-// - constexpr functions: implicitly inline
-// - class methods defined in body: implicitly inline
-// - __forceinline / always_inline: force it — use only in hot paths
 // - too much inlining: code bloat — larger binary, worse cache performance
 // - too little inlining: call overhead — worse for tiny frequently called fns
 
 
 //// basic — hint to compiler to inline
+// - inline as optimization hint: compiler may ignore — it knows better
 inline int square(int x) { return x * x; }
     // original intent — avoid function call overhead present without inline:
     // call square(5) → push args → jump → execute → return → jump back
@@ -44,6 +40,7 @@ inline void hugeFn() {
 
 
 //// force inline — compiler-specific
+// - __forceinline / always_inline: force it — use only in hot paths
 /* 
 __forceinline int sq(int x) { return x * x; }  // MSVC
 __attribute__((always_inline)) int sq_(int x) {} // GCC/Clang

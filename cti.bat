@@ -2,7 +2,8 @@
 setlocal enableextensions enabledelayedexpansion
 
 @REM Usage:
-@REM cti list       // for `src/list.cpp`
+@REM cti list    // for `src/list.cpp`
+@REM cti *       // for `src/*.cpp`
 
 @REM for cl     : c++latest (for c++23)
 @REM for clang++: c++23

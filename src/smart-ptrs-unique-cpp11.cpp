@@ -17,12 +17,6 @@ namespace {
 //
 // Key notes:
 
-class MyClass {
-    int x;
-    public: MyClass(int x) : x(x) {  }
-    int getX() { return this->x; };
-};
-
 
 //// factory pattern
 class Base {};
@@ -31,11 +25,18 @@ std::unique_ptr<Base> create() {
     return std::make_unique<Derived>();  // ✓ polymorphism
 }
 
+class MyClass {
+    int x;
+    public: MyClass(int x) : x(x) {  }
+    int getX() { return this->x; };
+};
+
 TEST_CASE("uniq-1") {
 
     //// create
     auto up_int = std::make_unique<int>(42);
     auto up = std::make_unique<MyClass>(42);  // forwards to constructor
+
 
     //// access
     *up;          // dereference
@@ -43,9 +44,11 @@ TEST_CASE("uniq-1") {
     up->getX();   // arrow access
     REQUIRE(up->getX() == 42);
 
+
     //// transfer ownership
     auto p2 = std::move(up);   // ✓ move: p now null
     // auto p3 = up;           // ❌ copy: copy ctor deleted — won't compile
+
 
     //// release / reset
     up_int.reset();           // destroy object, p = null

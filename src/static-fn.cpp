@@ -17,15 +17,14 @@ namespace {
 // - 
 //
 // Key notes:
-// - static member fn: no this, no instance needed, called via ClassName::fn()
-// - static free fn: internal linkage — not visible outside TU
-// - cannot be virtual — no this pointer, no vtable dispatch
 // - common uses: singleton, factory, utility/helper, validation
 
 
 //// static member function — belongs to class, not object
+// - cannot be virtual — no this pointer, no vtable dispatch
 struct Math {
     int val = 0; 
+    // static member fn: no this, no instance needed, called via ClassName::fn()
     static int square(int x) { 
         // ++val; // ❌ no this — can't access instance members
         return x * x; 
@@ -44,6 +43,8 @@ private:
 
 
 //// static free function — internal linkage (C-style)
+// - static free fn: internal linkage — not visible outside TU
+
 // file.cpp
 static void helper() {} // only visible in this TU ✓
                         // same as anonymous namespace

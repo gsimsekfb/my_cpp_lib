@@ -12,11 +12,9 @@ namespace {
 
 //// weak_ptr — non-owning observer  |  Rust: Weak<T>
 // - observes a shared_ptr without affecting ref count
-// - must lock() to access — safely handles object being destroyed
 //
 // Key notes:
 // - weak_ptr never keeps object alive — purely observing
-// - always check lock() result before use — never assume it's valid
 // - Rust Weak<T>: same concept, upgrade() = lock(), also returns Option
 // - main use cases: breaking cycles, caches, observer/event systems
 
@@ -27,13 +25,16 @@ TEST_CASE("weak-1") {
     auto sp = std::make_shared<int>(42);
     std::weak_ptr<int> wp = sp;         // ref count stays 1 ✓
 
+
     //// access — must lock first
-    //// !! lock is like a temporary shared_ptr to keep the obj alive
+    // - always check lock() result before use — never assume it's valid
+    // - !! lock is like a temporary shared_ptr to keep the obj alive
     if (auto locked = wp.lock()) {      // locked: shared_ptr — empty if expired
         std::cout << *locked;           // ✓ object still alive
     } else {
         std::cout << "expired";         // sp was destroyed
     }
+
 
     //// "safe" checks without locking
     wp.expired();                       // true if object gone

@@ -19,11 +19,17 @@ namespace {
 
 TEST_CASE("multi-d-1") {
 
+    //// cpp23
     struct Matrix {
         int data[3][3] = {};
         
+        // cpp23
         int& operator[](size_t i, size_t j) { return data[i][j]; }
         const int& operator[](size_t i, size_t j) const { return data[i][j]; }
+            // pre-cpp23
+            // error: overloaded 'operator[]' cannot have more than one 
+            // parameter before C++2b
+
     };
 
     Matrix m;
@@ -39,8 +45,6 @@ TEST_CASE("multi-d-1") {
     };
     Matrix_ m_;
     m_(0, 1) = 42;   // ❌ looks like a function call, not indexing
-
-    // REQUIRE(arr[0] == 42);
 
 
 }

@@ -64,6 +64,7 @@ TEST_CASE("virtual-1") {
     };
 
     {
+
     //// 3. final — prevent further override (C++11)
 
     // - final on class: 
